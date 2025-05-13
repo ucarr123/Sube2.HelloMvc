@@ -32,8 +32,8 @@
             $("#frm").submit(function(e) {
                 e.preventDefault();
                 
-                var a = $("#Ad").val();
-                var s = $("#Soyad").val();
+                var ad = $("#Ad").val();
+                var soyad = $("#Soyad").val();
                 
                 if (a == "" || s == "") {
                     alert("Ad ve soyad alanları boş bırakılamaz!");
@@ -49,9 +49,6 @@
                     },
                     success: function() {
                         $("#msg").html("Öğrenci başarıyla eklendi!")
-                                  .css("background-color", "green")
-                                  .css("color", "white")
-                                  .css("padding", "10px")
                                   .show();
                         
                         $("#Ad").val("");
@@ -59,9 +56,6 @@
                     },
                     error: function() {
                         $("#msg").html("Hata oluştu!")
-                                  .css("background-color", "red")
-                                  .css("color", "white")
-                                  .css("padding", "10px")
                                   .show();
                     }
                 });

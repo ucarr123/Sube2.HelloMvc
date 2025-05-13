@@ -28,7 +28,7 @@
         </tbody>
     </table>
     
-    <div id="yok" style="display:none;">
+    <div id="ogryoksa" style="display:none;">
         Öğrenci bulunamadı.
     </div>
 </div>
@@ -67,7 +67,7 @@
                                     "</tr>"
                                 );
                             }
-                            $("#yok").hide();
+                            $("#ogryoksa").hide();
                             $(".silBtn").click(function() {
                                 var id = $(this).data("id");
                                 if (confirm("Silmek istediğinize emin misiniz?")) {
@@ -81,7 +81,7 @@
                                 }
                             });
                         } else {
-                            $("#yok").show();
+                            $("#ogryoksa").show();
                         }
                     },
                     error: function() {

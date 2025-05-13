@@ -57,18 +57,18 @@ namespace Sube2.HelloMvc.Controllers
             return View();
         }
         
-        public JsonResult OgrenciListeJson(string aramaKelime = "")
+        public JsonResult OgrenciListeJson(string arananKelime = "")
         {
             var tumOgrenciler = db.Ogrenciler.ToList();
             var sonuc = tumOgrenciler;
             
-            if (!string.IsNullOrEmpty(aramaKelime))
+            if (!string.IsNullOrEmpty(arananKelime))
             {
                 sonuc = new List<Ogrenci>();
                 
                 foreach (var ogr in tumOgrenciler)
                 {
-                    if (ogr.Ad.Contains(aramaKelime) || ogr.Soyad.Contains(aramaKelime))
+                    if (ogr.Ad.Contains(arananKelime) || ogr.Soyad.Contains(arananKelime))
                     {
                         sonuc.Add(ogr);
                     }
@@ -85,16 +85,16 @@ namespace Sube2.HelloMvc.Controllers
         }
 
         [HttpPost]
-        public ViewResult OgrenciEkle(Ogrenci o)
+        public ViewResult OgrenciEkle(Ogrenci ogr)
         {
-            int s = 0;
-            if (o != null)
+            int saveCount = 0;
+            if (ogr != null)
             {
-                db.Ogrenciler.Add(o);
-                s = db.SaveChanges();
+                db.Ogrenciler.Add(ogr);
+                saveCount = db.SaveChanges();
             }
 
-            if (s > 0)
+            if (saveCount > 0)
             {
                 TempData["sonuc"] = true;
             }
@@ -112,11 +112,11 @@ namespace Sube2.HelloMvc.Controllers
         }
         
         [HttpPost]
-        public IActionResult OgrenciEkleAjax(Ogrenci o)
+        public IActionResult OgrenciEkleAjax(Ogrenci ogr)
         {
-            if (o != null)
+            if (ogr != null)
             {
-                db.Ogrenciler.Add(o);
+                db.Ogrenciler.Add(ogr);
                 db.SaveChanges();
                 return Json(new { ok = true });
             }
@@ -127,22 +127,22 @@ namespace Sube2.HelloMvc.Controllers
         [HttpGet]
         public IActionResult OgrenciDetay(int id)
         {
-            var bulunan = db.Ogrenciler.Find(id);
-            return View(bulunan);
+            var bulunanOgr = db.Ogrenciler.Find(id);
+            return View(bulunanOgr);
         }
 
         [HttpPost]
-        public IActionResult OgrenciDetay(Ogrenci o)
+        public IActionResult OgrenciDetay(Ogrenci ogr)
         {
-            db.Entry(o).State = EntityState.Modified;
+            db.Entry(ogr).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("OgrenciListe");
         }
 
         public IActionResult OgrenciSil(int id)
         {
-            var silinecek = db.Ogrenciler.Find(id);
-            db.Ogrenciler.Remove(silinecek);
+            var silinecekOgr = db.Ogrenciler.Find(id);
+            db.Ogrenciler.Remove(silinecekOgr);
             db.SaveChanges();
             return RedirectToAction("OgrenciListe");
         }
