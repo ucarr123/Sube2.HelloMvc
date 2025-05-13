@@ -1,0 +1,20 @@
+﻿@model Ogrenci
+@{
+    ViewData["Title"] = "OgrenciDetay";
+}
+
+<h1>Ogrenci Detay</h1>
+
+<form asp-action="OgrenciDetay" asp-controller="Ogrenci" method="post">
+    <input type="hidden" asp-for="Ogrenciid" />
+    <div class="mb-3">
+        <label class="form-label" asp-for="Ad"></label>
+        <input class="form-control" type="text" asp-for="Ad" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Soyad"></label>
+        <input class="form-control" type="text" asp-for="Soyad" />
+    </div>
+    <input type="submit" class="btn btn-success" value="Kaydet" />
+</form>
+

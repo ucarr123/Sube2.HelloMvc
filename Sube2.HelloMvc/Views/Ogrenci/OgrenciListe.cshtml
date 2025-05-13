@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Ogrenci>
+@{
+    ViewData["Title"] = "Öğrenci Listesi";
+}
+
+<h3>Öğrenci Listesi</h3>
+<ul>
+    @foreach (var ogr in Model)
+    {
+        <li>@ogr.Ad @ogr.Soyad</li>
+    }
+</ul>
+
+<h3>Öğrenci Listesi - Table örneği</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Ogrenci Id</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ogr in Model)
+        {
+            <tr>
+                <td>@ogr.Ogrenciid</td>
+                <td>@ogr.Ad</td>
+                <td>@ogr.Soyad</td>
+                <td><a href="/Ogrenci/OgrenciDetay/@ogr.Ogrenciid">Detay</a> <a onclick="return confirm('Emin misiniz?')" href="/Ogrenci/OgrenciSil/@ogr.Ogrenciid">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

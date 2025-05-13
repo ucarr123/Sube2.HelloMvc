@@ -1,0 +1,77 @@
+@model Ogrenci
+@{
+    ViewData["Title"] = "Öğrenci Ekle - Ajax";
+}
+
+<div class="container">
+    <h2>Öğrenci Ekle (Ajax)</h2>
+    
+    <div id="msg" style="display:none; margin-bottom: 10px;"></div>
+    
+    <form id="frm">
+        <div class="mb-3">
+            <label class="form-label" for="Ad">Ad</label>
+            <input class="form-control" type="text" id="Ad" name="Ad" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="Soyad">Soyad</label>
+            <input class="form-control" type="text" id="Soyad" name="Soyad" required />
+        </div>
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <button type="button" class="btn btn-secondary" id="tmzle">Temizle</button>
+    </form>
+    
+    <div class="mt-3">
+        <a href="/Ogrenci/OgrenciListeAjax" class="btn btn-primary">Öğrenci Listesine Dön</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#frm").submit(function(e) {
+                e.preventDefault();
+                
+                var a = $("#Ad").val();
+                var s = $("#Soyad").val();
+                
+                if (a == "" || s == "") {
+                    alert("Ad ve soyad alanları boş bırakılamaz!");
+                    return;
+                }
+                
+                $.ajax({
+                    url: "/Ogrenci/OgrenciEkleAjax",
+                    type: "POST",
+                    data: {
+                        Ad: a,
+                        Soyad: s
+                    },
+                    success: function() {
+                        $("#msg").html("Öğrenci başarıyla eklendi!")
+                                  .css("background-color", "green")
+                                  .css("color", "white")
+                                  .css("padding", "10px")
+                                  .show();
+                        
+                        $("#Ad").val("");
+                        $("#Soyad").val("");
+                    },
+                    error: function() {
+                        $("#msg").html("Hata oluştu!")
+                                  .css("background-color", "red")
+                                  .css("color", "white")
+                                  .css("padding", "10px")
+                                  .show();
+                    }
+                });
+            });
+            
+            $("#tmzle").click(function() {
+                $("#Ad").val("");
+                $("#Soyad").val("");
+                $("#msg").hide();
+            });
+        });
+    </script>
+} 
